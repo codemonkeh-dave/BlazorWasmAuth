@@ -49,6 +49,15 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+
+app.MapGet("api/foo", () =>
+{
+    return new[] { "One", "Two", "Three" };
+}).RequireAuthorization("api");
+
+app.MapGroup("api/auth")
+    .MapIdentityApi<MyUser>();
+
 app.Run();
 
 // identity user
